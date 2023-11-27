@@ -12,6 +12,7 @@ class Tree {
   }
 
   buildTree(arr) {
+    arr = [...new Set(arr)].sort((a, b) => a - b);
     let start = 0;
     let end = arr.length - 1;
     if (start > end) return null;
@@ -39,5 +40,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let array = new Tree([1, 2, 3, 4, 5, 6, 7]);
+let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 prettyPrint(array.root);
