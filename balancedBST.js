@@ -25,6 +25,17 @@ class Tree {
 
     return root;
   }
+
+  insert(value) {
+    const insertNode = (node, value) => {
+      if (node === null) return new Node(value);
+      if (value < node.data) node.left = insertNode(node.left, value);
+      else if (value > node.data) node.right = insertNode(node.right, value);
+      return node;
+    };
+    this.root = insertNode(this.root, value);
+    prettyPrint(array.root);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -41,4 +52,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
+
 prettyPrint(array.root);
+
+array.insert(0);
+array.insert(8);
