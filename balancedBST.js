@@ -36,6 +36,41 @@ class Tree {
     this.root = insertNode(this.root, value);
     prettyPrint(array.root);
   }
+
+  delete(value) {
+    const deleteNode = (node, value) => {
+      if (node === null) return null;
+      if (value < node.data) {
+        node.left = deleteNode(node.left, value);
+        return node;
+      } else if (value > node.data) {
+        node.right = deleteNode(node.right, value);
+        return node;
+      } else {
+        if (node.left === null && node.right === null) {
+          node = null;
+          return node;
+        }
+        if (node.left === null) {
+          node = node.right;
+          return node;
+        } else if (node.right === null) {
+          node = node.left;
+          return node;
+        }
+        let temp = node.right;
+        while (temp.left !== null) {
+          temp = temp.left;
+        }
+        node.data = temp.data;
+        node.right = deleteNode(node.right, temp.data);
+        return node;
+      }
+    };
+    this.root = deleteNode(this.root, value);
+
+    prettyPrint(array.root);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -53,7 +88,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 
-prettyPrint(array.root);
+// prettyPrint(array.root);
 
-array.insert(0);
-array.insert(8);
+// array.insert(0);
+// array.insert(8);
+// array.delete(1);
+// array.delete(4);
+// array.deleteNode(8);
