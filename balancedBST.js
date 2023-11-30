@@ -71,6 +71,16 @@ class Tree {
 
     prettyPrint(array.root);
   }
+
+  find(value) {
+    const findNode = (node, value) => {
+      if (node === null) return null;
+      if (value < node.data) return findNode(node.left, value);
+      else if (value > node.data) return findNode(node.right, value);
+      else return node;
+    };
+    return findNode(this.root, value);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -95,3 +105,6 @@ let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 // array.delete(1);
 // array.delete(4);
 // array.deleteNode(8);
+console.log(array.find(3));
+console.log(array.find(5));
+console.log(array.find(4));
