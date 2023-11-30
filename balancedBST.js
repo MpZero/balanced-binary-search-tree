@@ -81,6 +81,41 @@ class Tree {
     };
     return findNode(this.root, value);
   }
+
+  //Iteration
+  levelOrder(callback = null) {
+    if (this.root === null) return [];
+    const queue = [this.root];
+    const result = [];
+    while (queue.length > 0) {
+      const node = queue.shift();
+      if (callback !== null) callback(node);
+      result.push(node.data);
+      if (node.left !== null) queue.push(node.left);
+      if (node.right !== null) queue.push(node.right);
+    }
+    prettyPrint(array.root);
+    return result;
+  }
+
+  //Recursive
+  levelOrderRecursive(callback = null) {
+    if (this.root === null) return [];
+    const queue = [this.root];
+    const result = [];
+    const traverse = () => {
+      if (queue.length === 0) return;
+      const node = queue.shift();
+      if (callback !== null) callback(node);
+      result.push(node.data);
+      if (node.left !== null) queue.push(node.left);
+      if (node.right !== null) queue.push(node.right);
+      traverse();
+    };
+    prettyPrint(array.root);
+    traverse();
+    return result;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -102,9 +137,16 @@ let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 
 // array.insert(0);
 // array.insert(8);
+
 // array.delete(1);
 // array.delete(4);
-// array.deleteNode(8);
-console.log(array.find(3));
-console.log(array.find(5));
-console.log(array.find(4));
+
+// array.delete(6);
+// array.delete(3);
+
+// console.log(array.find(3));
+// console.log(array.find(5));
+// console.log(array.find(4));
+
+// console.log(array.levelOrder());
+// console.log(array.levelOrderRecursive());
