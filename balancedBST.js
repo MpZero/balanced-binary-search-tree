@@ -116,6 +116,20 @@ class Tree {
     traverse();
     return result;
   }
+
+  inOrder(callback = null) {
+    const result = [];
+    const traverse = (node) => {
+      if (node === null) return;
+      traverse(node.left);
+      if (callback !== null) callback(node);
+      result.push(node.data);
+      traverse(node.right);
+    };
+    prettyPrint(array.root);
+    traverse(this.root);
+    return result;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -149,4 +163,5 @@ let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 // console.log(array.find(4));
 
 // console.log(array.levelOrder());
-// console.log(array.levelOrderRecursive());
+// console.log(array.levelOrder());
+console.log(array.inOrder());
