@@ -158,6 +158,46 @@ class Tree {
     traverse(this.root);
     return result;
   }
+
+  height(node) {
+    if (node === null) {
+      return -1;
+    }
+
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  // depth(node) {
+  //   if (node === null) {
+  //     return -1;
+  //   }
+
+  //   if (node.parent === undefined) {
+  //     return 0;
+  //   }
+
+  //   return this.depth(data.data) + 1;
+  // }
+
+  isBalanced(node) {
+    if (node === null) {
+      return true;
+    }
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
+    }
+    return this.isBalanced(node.left) && this.isBalanced(node.right);
+  }
+
+  rebalance() {
+    const arr = this.inOrder();
+    this.root = this.buildTree(arr);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -196,4 +236,12 @@ let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 
 // console.log(array.preOrder());
 
-console.log(array.postOrder());
+// console.log(array.postOrder());
+
+// console.log(array.height(array.root));
+
+// console.log(array.depth(array.root));
+
+// console.log(array.isBalanced());
+
+// console.log(array.rebalance());
