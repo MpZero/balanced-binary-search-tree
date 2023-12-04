@@ -34,7 +34,6 @@ class Tree {
       return node;
     };
     this.root = insertNode(this.root, value);
-    prettyPrint(array.root);
   }
 
   delete(value) {
@@ -68,8 +67,6 @@ class Tree {
       }
     };
     this.root = deleteNode(this.root, value);
-
-    prettyPrint(array.root);
   }
 
   find(value) {
@@ -94,7 +91,7 @@ class Tree {
       if (node.left !== null) queue.push(node.left);
       if (node.right !== null) queue.push(node.right);
     }
-    prettyPrint(array.root);
+
     return result;
   }
 
@@ -112,7 +109,7 @@ class Tree {
       if (node.right !== null) queue.push(node.right);
       traverse();
     };
-    prettyPrint(array.root);
+
     traverse();
     return result;
   }
@@ -126,7 +123,7 @@ class Tree {
       result.push(node.data);
       traverse(node.right);
     };
-    prettyPrint(array.root);
+
     traverse(this.root);
     return result;
   }
@@ -140,7 +137,7 @@ class Tree {
       traverse(node.left);
       traverse(node.right);
     };
-    prettyPrint(array.root);
+
     traverse(this.root);
     return result;
   }
@@ -154,7 +151,7 @@ class Tree {
       if (callback !== null) callback(node);
       result.push(node.data);
     };
-    prettyPrint(array.root);
+
     traverse(this.root);
     return result;
   }
@@ -182,7 +179,7 @@ class Tree {
   //   return this.depth(data.data) + 1;
   // }
 
-  isBalanced(node) {
+  isBalanced(node = this.root) {
     if (node === null) {
       return true;
     }
@@ -213,7 +210,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
+// let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 
 // prettyPrint(array.root);
 
@@ -245,3 +242,33 @@ let array = new Tree([7, 6, 1, 2, 3, 4, 5]);
 // console.log(array.isBalanced());
 
 // console.log(array.rebalance());
+
+const randomArray = (size) => {
+  return Array.from({ length: size }, () => Math.floor(Math.random() * 100));
+};
+
+const array = new Tree(randomArray(30));
+prettyPrint(array.root);
+
+console.log("Is the tree balanced? :", array.isBalanced());
+console.log("Level-order: ", array.levelOrder());
+console.log("Pre-order: ", array.preOrder());
+console.log("In-order: ", array.inOrder());
+console.log("Post-order: ", array.postOrder());
+
+for (let i = 0; i < 5; i++) {
+  array.insert(Math.floor(Math.random() * 20));
+}
+console.log("Adding new elements...");
+prettyPrint(array.root);
+
+console.log("New elements added. Is the tree balanced? :", array.isBalanced());
+
+array.rebalance();
+console.log("Rebalancing the tree...");
+
+console.log("Is the tree balanced now?:", array.isBalanced());
+console.log("Level-order: ", array.levelOrder());
+console.log("Pre-order: ", array.preOrder());
+console.log("In-order: ", array.inOrder());
+console.log("Post-order: ", array.postOrder());
